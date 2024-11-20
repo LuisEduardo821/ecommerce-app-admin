@@ -37,9 +37,9 @@ export const StoreModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const response = await axios.post("/api/stores", values);
+      const { data } = await axios.post("/api/stores", values);
       toast.success("Tienda creada.");
+      window.location.assign(`/${data.id}`);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Error al crear tienda");

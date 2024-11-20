@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useStoreModal } from "@/hooks";
-import { UserButton } from "@clerk/nextjs";
 
 const SetupPage = () => {
   const onOpenModal = useStoreModal((state) => state.onOpenModal);
@@ -13,12 +12,7 @@ const SetupPage = () => {
       onOpenModal();
     }
   }, [isOpen, onOpenModal]);
-  return (
-    <div className="p-4">
-      <UserButton showName />
-      Root page
-    </div>
-  );
+  return <div className="p-4">Root page</div>;
 };
 
 export default SetupPage;
