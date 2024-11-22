@@ -11,6 +11,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useStoreModal } from "@/hooks";
@@ -57,7 +58,7 @@ export const StoreSwitcher = ({
             aria-label="selecionar una tienda"
             className={cn("w-[200px] justify-between", className)}
           >
-            <StoreIcon className="mr-2 h-4 w-4" />
+            <StoreIcon className="mr-2 w-8 h-8" />
             Tienda actual
             <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -77,10 +78,21 @@ export const StoreSwitcher = ({
                   >
                     <StoreIcon className="mr-2 h-4 w-4" />
                     {store.label}
-                    <Check />
+                    <Check
+                      className={
+                        (cn("ml-auto h-4 w-4"),
+                        currentStore?.value === store.value
+                          ? "opacity-100"
+                          : "opacity-0")
+                      }
+                    />
                   </CommandItem>
                 ))}
               </CommandGroup>
+            </CommandList>
+            <CommandSeparator />
+            <CommandList>
+              <CommandGroup></CommandGroup>
             </CommandList>
           </Command>
         </PopoverContent>

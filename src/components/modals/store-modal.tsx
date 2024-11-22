@@ -19,6 +19,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -86,6 +87,7 @@ export const StoreModal = () => {
                 </Button>
                 <Button type="submit" disabled={loading}>
                   Continuar
+                  {loading ? <Loader2 className="animate-spin" /> : ""}
                 </Button>
               </div>
             </form>
