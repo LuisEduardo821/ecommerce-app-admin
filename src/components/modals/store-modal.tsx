@@ -39,7 +39,6 @@ export const StoreModal = () => {
     try {
       setLoading(true);
       const { data } = await axios.post("/api/stores", values);
-      toast.success("Tienda creada.");
       window.location.assign(`/${data.id}`);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

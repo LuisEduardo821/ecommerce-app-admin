@@ -15,7 +15,12 @@ import {
 } from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useStoreModal } from "@/hooks";
-import { Check, ChevronsUpDown, Store as StoreIcon } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  PlusCircle,
+  Store as StoreIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 type PopoversTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
@@ -58,8 +63,8 @@ export const StoreSwitcher = ({
             aria-label="selecionar una tienda"
             className={cn("w-[200px] justify-between", className)}
           >
-            <StoreIcon className="mr-2 w-8 h-8" />
-            Tienda actual
+            <StoreIcon className="mr-2 w-4 h-4" />
+            {currentStore?.label}
             <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -92,7 +97,17 @@ export const StoreSwitcher = ({
             </CommandList>
             <CommandSeparator />
             <CommandList>
-              <CommandGroup></CommandGroup>
+              <CommandGroup>
+                <CommandItem
+                  onSelect={() => {
+                    setOpen(false);
+                    storeModal.onOpenModal();
+                  }}
+                >
+                  <PlusCircle className="mr-2 h-5 w-5" />
+                  Crear Tienda
+                </CommandItem>
+              </CommandGroup>
             </CommandList>
           </Command>
         </PopoverContent>
