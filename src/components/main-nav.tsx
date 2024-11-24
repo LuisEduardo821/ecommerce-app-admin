@@ -12,9 +12,14 @@ export const MainNav = ({
   const params = useParams();
   const routes = [
     {
+      href: `/${params.storeId}`,
+      label: "Vista general",
+      active: pathname === `/${params.storeId}`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: "Configuración",
-      active: pathname === `${params.storeId}/settings`,
+      active: pathname === `/${params.storeId}/settings`,
     },
   ];
   return (
