@@ -23,6 +23,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
 
 interface SettingsFormProps {
   initialData: Store;
@@ -133,6 +134,8 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert title="test" description="test-description" variant="admin" />
     </>
   );
 };
