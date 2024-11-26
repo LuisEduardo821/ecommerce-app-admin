@@ -16,7 +16,9 @@ export const BillboardClient = () => {
           title="Portadas (9)"
           description="Administra las portadas de tu tienda"
         />
-        <Button>
+        <Button
+          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+        >
           <Plus className="h-4 w-4" />
           Nuevo
         </Button>
