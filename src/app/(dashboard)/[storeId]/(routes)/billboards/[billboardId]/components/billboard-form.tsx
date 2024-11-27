@@ -60,9 +60,16 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      if (initialData) {
+        await axios.patch(
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          data
+        );
+      } else {
+        await axios.post(`/api/${params.storeId}/billboards`, data);
+      }
       router.refresh();
-      toast.success("Tienda actualizada.", {
+      toast.success(toastMessage, {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -76,15 +83,19 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}`);
+      await axios.delete(
+        `/api/${params.storeId}/billboards/${params.billboardId}`
+      );
       router.refresh();
       router.push("/");
-      toast.success("Tienda eliminada", {
+      toast.success("Portada eliminada", {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toast("Asegúrese de eliminar todos los productos y categorías primero.");
+      toast(
+        "Asegúrese de eliminar todos las categorías que usan esta portada primero."
+      );
     } finally {
       setOpen(false);
       setLoading(false);
