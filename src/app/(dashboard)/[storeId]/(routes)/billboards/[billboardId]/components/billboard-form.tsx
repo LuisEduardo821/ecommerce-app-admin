@@ -68,6 +68,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
+      router.push(`/${params.storeId}/billboards`);
       router.refresh();
       toast.success(toastMessage, {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
@@ -86,8 +87,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       await axios.delete(
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
+      router.push(`/${params.storeId}/billboards`);
       router.refresh();
-      router.push("/");
+      // window.location.assign(`/${params.storeId}/billboards`);
       toast.success("Portada eliminada", {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
       });
@@ -169,12 +171,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
               )}
             />
           </div>
-          <Button type="submit" className="ml-auto">
+          <Button type="submit" className="ml-auto" disabled={loading}>
             {accion}
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
