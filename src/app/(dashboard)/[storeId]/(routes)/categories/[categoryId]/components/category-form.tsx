@@ -101,7 +101,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       );
       router.push(`/${params.storeId}/categories`);
       router.refresh();
-      // window.location.assign(`/${params.storeId}/billboards`);
+      
       toast.success("Categoria eliminada", {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
       });

@@ -36,17 +36,17 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      router.push(`/${params.storeId}/billboards`);
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+      router.push(`/${params.storeId}/categories`);
       router.refresh();
       // window.location.assign(`/${params.storeId}/billboards`);
-      toast.success("Portada eliminada", {
+      toast.success("Categoria eliminada", {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast(
-        "Asegúrese de eliminar todos las categorías que usan esta portada primero."
+        "Asegúrese de eliminar todos los productos que usan esta categoria primero."
       );
     } finally {
       setOpen(false);
@@ -78,7 +78,7 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/categories/${data.id}`)
             }
           >
             <Edit className="h-4 w-4 mr-2" />
