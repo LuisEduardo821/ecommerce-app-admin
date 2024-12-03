@@ -3,5 +3,5 @@
 import { Toaster } from "sonner";
 
 export const ToasterProvider = () => {
-  return <Toaster position="top-right" />;
+  return <Toaster position="bottom-right" />;
 };
