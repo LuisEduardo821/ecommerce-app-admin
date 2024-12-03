@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CategoryColumn } from "./columns";
+import { SizeColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { CircleCheck, Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
@@ -18,7 +18,7 @@ import axios from "axios";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionsProps {
-  data: CategoryColumn;
+  data: SizeColumn;
 }
 export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
   const router = useRouter();
@@ -28,7 +28,7 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Id de categoria copiada.", {
+    toast.success("Id de talla copiada.", {
       icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
     });
   };
@@ -36,17 +36,17 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
-      router.push(`/${params.storeId}/categories`);
+      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+      router.push(`/${params.storeId}/sizes`);
       router.refresh();
-      // window.location.assign(`/${params.storeId}/billboards`);
-      toast.success("Categoria eliminada", {
+
+      toast.success("Talla eliminada", {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast(
-        "Asegúrese de eliminar todos los productos que usan esta categoria primero."
+        "Asegúrese de eliminar todos los productos que usan esta talla primero."
       );
     } finally {
       setOpen(false);
@@ -77,9 +77,7 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
             Copiar Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() =>
-              router.push(`/${params.storeId}/categories/${data.id}`)
-            }
+            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
           >
             <Edit className="h-4 w-4 mr-2" />
             Editar
