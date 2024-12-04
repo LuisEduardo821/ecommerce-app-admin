@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { Button } from "./button";
 import { ImagePlus, Trash } from "lucide-react";
@@ -22,6 +23,7 @@ export const ImageUpload = ({
     setIsMounted(true);
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onUpload = (result: any) => {
     onChange(result.info.secure_url);
   };
@@ -29,10 +31,9 @@ export const ImageUpload = ({
   if (!isMounted) {
     return null;
   }
-
   return (
     <div>
-      <div className="mb-6 flex items-center gap-4">
+      <div className="flex mb-6 items-center gap-4">
         {value.map((url) => (
           <div
             key={url}
