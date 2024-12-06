@@ -7,7 +7,7 @@ import { CldUploadWidget } from "next-cloudinary";
 
 interface ImageUploadProps {
   disabled?: boolean;
-  onChange: (value: string) => void;
+  onChange: (value: string[]) => void;
   onRemove: (value: string) => void;
   value: string[];
 }
@@ -25,7 +25,8 @@ export const ImageUpload = ({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onUpload = (result: any) => {
-    onChange(result.info.secure_url);
+    if (result && result.info && result.info.secure_url)
+      onChange([...value, result.info.secure_url]);
   };
 
   if (!isMounted) {
@@ -53,7 +54,11 @@ export const ImageUpload = ({
           </div>
         ))}
       </div>
-      <CldUploadWidget onSuccess={onUpload} uploadPreset="o7jl3zwd">
+      <CldUploadWidget
+        onSuccess={onUpload}
+        uploadPreset="o7jl3zwd"
+        options={{ multiple: true }}
+      >
         {({ open }) => {
           const onClick = () => {
             open();
