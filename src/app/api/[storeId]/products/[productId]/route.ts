@@ -4,46 +4,77 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
-  { params }: { params: { billboardId: string } }
+  { params }: { params: { productId: string } }
 ) {
   try {
-    if (!params.billboardId) {
-      return new NextResponse("Billboard id is required", { status: 400 });
+    if (!params.productId) {
+      return new NextResponse("Product id is required", { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.findUnique({
+    const product = await prismadb.product.findUnique({
       where: {
-        id: params.billboardId,
+        id: params.productId,
+      },
+      include: {
+        images: true,
+        category: true,
+        color: true,
+        size: true,
       },
     });
-    return NextResponse.json(billboard);
+    return NextResponse.json(product);
   } catch (error) {
-    console.log("BILLBOARD_GET", error);
+    console.log("PRODUCT_GET", error);
     return new NextResponse("Interal error", { status: 500 });
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; productId: string } }
 ) {
   try {
     const { userId } = await auth();
     const body = await req.json();
-    const { label, imageUrl } = body;
+    const {
+      name,
+      price,
+      cost,
+      images,
+      categoryId,
+      colorId,
+      sizeId,
+      isFeatured,
+      isArchived,
+    } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
-    if (!label) {
-      return new NextResponse("Label es required", { status: 400 });
+    if (!name) {
+      return new NextResponse("Name is required", { status: 400 });
     }
-    if (!imageUrl) {
-      return new NextResponse("Image URL es required", { status: 400 });
+    if (!price) {
+      return new NextResponse("Price is required", { status: 400 });
+    }
+    if (!cost) {
+      return new NextResponse("Cost is required", { status: 400 });
+    }
+    if (!images || !images.length) {
+      return new NextResponse("Images is required", { status: 400 });
+    }
+    if (!colorId) {
+      return new NextResponse("Color id is required", { status: 400 });
+    }
+    if (!categoryId) {
+      return new NextResponse("Category id is required", { status: 400 });
+    }
+    if (!sizeId) {
+      return new NextResponse("Size id is required", { status: 400 });
     }
 
-    if (!params.billboardId) {
-      return new NextResponse("Billboard id is required", { status: 400 });
+    if (!params.productId) {
+      return new NextResponse("Product id is required", { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -57,9 +88,9 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const billboard = await prismadb.billboard.updateMany({
+    const product = await prismadb.product.updateMany({
       where: {
-        id: params.billboardId,
+        id: params.productId,
       },
       data: {
         label,
