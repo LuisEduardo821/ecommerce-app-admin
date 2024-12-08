@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { BillboardColumn } from "./columns";
+import { ProductColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { CircleCheck, Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
@@ -18,7 +18,7 @@ import axios from "axios";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionsProps {
-  data: BillboardColumn;
+  data: ProductColumn;
 }
 export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
   const router = useRouter();
@@ -28,7 +28,7 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Id de portada copiada.", {
+    toast.success("Id de producto copiado.", {
       icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
     });
   };
@@ -36,18 +36,16 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      router.push(`/${params.storeId}/billboards`);
+      await axios.delete(`/api/${params.storeId}/products/${data.id}`);
+      router.push(`/${params.storeId}/products`);
       router.refresh();
       // window.location.assign(`/${params.storeId}/billboards`);
-      toast.success("Portada eliminada", {
+      toast.success("Producto eliminado", {
         icon: <CircleCheck className="text-emerald-500 h-5 w-5" />,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toast(
-        "Asegúrese de eliminar todos las categorías que usan esta portada primero."
-      );
+      toast("Algo salio mal.");
     } finally {
       setOpen(false);
       setLoading(false);
@@ -78,7 +76,7 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/products/${data.id}`)
             }
           >
             <Edit className="h-4 w-4 mr-2" />
