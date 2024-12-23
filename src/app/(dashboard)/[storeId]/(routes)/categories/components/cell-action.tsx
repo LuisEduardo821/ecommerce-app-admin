@@ -45,7 +45,7 @@ export const CellAction: React.FC<CellActionsProps> = ({ data }) => {
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toast(
+      toast.error(
         "Asegúrese de eliminar todos los productos que usan esta categoria primero."
       );
     } finally {
